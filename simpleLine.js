@@ -14,16 +14,16 @@ var follower;
 var path;
 var graphics;
 
-var game = new Phaser.Gamer(config);
+var game = new Phaser.Game(config);
 
 function create(){
     graphics = this.add.graphics();
 
-    followers = { t: 0, vec: new Phaser.Math.Vector2()};
+    follower = { t: 0, vec: new Phaser.Math.Vector2()};
 
     // The curves do not have to be joined
-    var line1 = new Phaser.Curvers.Line([100, 100, 500, 200])
-    var line2 = new Phaser.Curvers.Line([200, 300, 600, 500])
+    var line1 = new Phaser.Curves.Line([100, 100, 500, 200])
+    var line2 = new Phaser.Curves.Line([200, 300, 600, 500])
 
     path = this.add.path();
 
@@ -31,8 +31,8 @@ function create(){
     path.add(line1);
     path.add(line2);
  
-    this.tween.add({
-        target: followers,
+    this.tweens.add({
+        targets: follower,
         t:1,
         ease: 'Linear',
         duration: 4000,
@@ -47,10 +47,11 @@ function create(){
 function update()
 {
     graphics.clear();
-    graphics.ineStyle(2,0xffffff,1)
+    graphics.lineStyle(2,0xffffff,1)
 
     path.draw(graphics)
-    path.getPoint(followers.t, follower.vec)
+    path.getPoint(follower.t, follower.vec);
 
-    
+    graphics.fillStyle(0xff0000, 1);
+    graphics.fillRect(follower.vec.x - 8, follower.vec.y - 8, 16, 16)
 }
